@@ -13,8 +13,16 @@ public class Done_GameController : MonoBehaviour
 	private bool gameOver;
 	private bool restart;
 	private int score;
-	
-	void Start ()
+    public GameObject shield;
+    private GameObject myShield;
+    public Transform shieldSpawn;
+    public Material[] myMaterials = new Material[4];
+    public string[] tags = { "Green", "Red", "Blue", "Yellow" };
+
+    public float shieldDelay;
+    public float lastTime;
+
+    void Start ()
 	{
 		gameOver = false;
 		restart = false;
@@ -22,35 +30,62 @@ public class Done_GameController : MonoBehaviour
 		gameOverText.text = "";
 		score = 0;
 		UpdateScore ();
-		StartCoroutine (SpawnLasers ());
 	}
 	
 	void Update ()
 	{
-		if (restart)
+        if (gameOver)
+        {
+            restartText.text = "Press 'R' for Restart";
+            restart = true;
+        }
+        if (restart)
 		{
 			if (Input.GetKeyDown (KeyCode.R))
 			{
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 			}
 		}
-	}
-	
-	IEnumerator SpawnLasers()
-	{
-		yield return new WaitForSeconds (startWait);
-		while (true)
-		{
-			if (gameOver)
-			{
-				restartText.text = "Press 'R' for Restart";
-				restart = true;
-				break;
-			}
-		}
-	}
-	
-	public void AddScore (int newScoreValue)
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            spawnShield(0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            spawnShield(1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            spawnShield(2);
+        }
+
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            spawnShield(3);
+        }
+    }
+
+    void spawnShield(int materialInd)
+    {
+        if (Time.time > lastTime + shieldDelay)
+        {
+            if (myShield != null)
+            {
+                Destroy(myShield.gameObject);
+            }
+            myShield = Instantiate(shield, shieldSpawn.position, shieldSpawn.rotation);
+            Renderer rend = myShield.GetComponent<Renderer>();
+            rend.material = myMaterials[materialInd];
+            myShield.tag = tags[materialInd];
+            lastTime = Time.time;
+        }
+
+    }
+
+    public void AddScore (int newScoreValue)
 	{
 		score += newScoreValue;
 		UpdateScore ();

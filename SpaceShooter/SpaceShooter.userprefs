@@ -5,7 +5,7 @@
       <File FileName="Assets\_Complete-Game\Scripts\Done_Mover.cs" Line="1" Column="1" />
       <File FileName="Assets\_Complete-Game\Scripts\Done_DestroyByContact.cs" Line="1" Column="1" />
       <File FileName="Assets\_Complete-Game\Scripts\Done_PlayerController.cs" Line="1" Column="1" />
-      <File FileName="Assets\_Complete-Game\Scripts\Done_GameController.cs" Line="58" Column="2" />
+      <File FileName="Assets\_Complete-Game\Scripts\Done_GameController.cs" Line="59" Column="21" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

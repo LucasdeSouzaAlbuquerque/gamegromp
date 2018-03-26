@@ -17,26 +17,28 @@ public class Done_WeaponController : MonoBehaviour
 
 	void Fire ()
 	{
-		GameObject shota = Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+		GameObject shotCreated = Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+		Renderer rend = shotCreated.GetComponent<Renderer> ();
 		int value = (int)Random.Range (1, 4);
 		switch(value){	
 		case 1:
-			shota.GetComponent<Renderer>().material = myMaterials [0];
-			shota.tag = tags [0];
+			rend.material = myMaterials [0];
+			shotCreated.tag = tags [0];
 			break;
 		case 2:
-			shota.GetComponent<Renderer>().material = myMaterials [1];
-			shota.tag = tags [1];
+			rend.material = myMaterials [1];
+			shotCreated.tag = tags [1];
 			break;
 		case 3:
-			shota.GetComponent<Renderer>().material = myMaterials [2];
-			shota.tag = tags [2];
+			rend.material = myMaterials [2];
+			shotCreated.tag = tags [2];
 			break;
 		case 4:
-			shota.GetComponent<Renderer>().material = myMaterials [3];
-			shota.tag = tags [3];
+			rend.material = myMaterials [3];
+			shotCreated.tag = tags [3];
 			break;
 		}
+		Debug.Log (shotCreated.tag);
 		GetComponent<AudioSource>().Play();
 	}
 }
