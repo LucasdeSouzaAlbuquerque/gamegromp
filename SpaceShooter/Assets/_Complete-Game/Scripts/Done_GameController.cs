@@ -4,11 +4,8 @@ using System.Collections;
 
 public class Done_GameController : MonoBehaviour
 {
-	public GameObject[] hazards;
-	public Vector3 spawnValues;
 	public float startWait;
-	public float laserWait;
-	
+
 	public GUIText scoreText;
 	public GUIText restartText;
 	public GUIText gameOverText;
@@ -44,12 +41,6 @@ public class Done_GameController : MonoBehaviour
 		yield return new WaitForSeconds (startWait);
 		while (true)
 		{
-			GameObject hazard = hazards [Random.Range (0, hazards.Length)];
-			Vector3 spawnPosition = new Vector3 (Random.Range (-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
-			Quaternion spawnRotation = Quaternion.identity;
-			Instantiate (hazard, spawnPosition, spawnRotation);
-            yield return new WaitForSeconds (laserWait);
-			
 			if (gameOver)
 			{
 				restartText.text = "Press 'R' for Restart";
