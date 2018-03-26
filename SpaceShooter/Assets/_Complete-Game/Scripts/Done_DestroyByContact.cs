@@ -5,7 +5,6 @@ public class Done_DestroyByContact : MonoBehaviour
 {
 	public GameObject explosion;
 	public GameObject playerExplosion;
-	public int scoreValue;
 	private Done_GameController gameController;
 
 	void Start ()
@@ -27,30 +26,27 @@ public class Done_DestroyByContact : MonoBehaviour
 		{
 			return;
 		}
-
-		if (explosion != null)
-		{
-			Instantiate(explosion, transform.position, transform.rotation);
-		}
-
+       
         if (other.tag == this.tag)
         {
+            Instantiate(explosion, transform.position, transform.rotation);
+            Destroy(other.gameObject);
+            Destroy(gameObject);
             gameController.AddScore(10);
         }
 
-        if (other.tag != "Player" && other.tag != this.tag)
+        /*if (other.tag != "Player" && other.tag != this.tag)
         {
             gameController.AddScore(5);
-        }
+        }*/
 
         if (other.tag == "Player")
 		{
 			Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
 			gameController.GameOver();
-		}
-		
-		gameController.AddScore(scoreValue);
-		Destroy (other.gameObject);
-		Destroy (gameObject);
+            Destroy(other.gameObject);
+            Destroy(gameObject);
+        }
+
 	}
 }

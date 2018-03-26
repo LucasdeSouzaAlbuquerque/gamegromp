@@ -18,6 +18,9 @@ public class Done_GameController : MonoBehaviour
     public Transform shieldSpawn;
     public Material[] myMaterials = new Material[4];
     public string[] tags = { "Green", "Red", "Blue", "Yellow" };
+    public int anyActive = -1;
+
+    public GameObject[] invisicubes = new GameObject[4];
 
     public float shieldDelay;
     public float lastTime;
@@ -34,6 +37,9 @@ public class Done_GameController : MonoBehaviour
 	
 	void Update ()
 	{
+
+        checkStuffYo();
+
         if (gameOver)
         {
             restartText.text = "Press 'R' for Restart";
@@ -47,7 +53,12 @@ public class Done_GameController : MonoBehaviour
 			}
 		}
 
-        if (Input.GetKeyDown(KeyCode.Z))
+        if(anyActive != -1 && shieldSpawn != null)
+        {
+            spawnShield(anyActive);
+        }
+
+        /*if (Input.GetKeyDown(KeyCode.Z))
         {
             spawnShield(0);
         }
@@ -65,6 +76,19 @@ public class Done_GameController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.V))
         {
             spawnShield(3);
+        }*/
+    }
+
+    void checkStuffYo()
+    {
+        anyActive = -1;
+        for (int i = 0; i < 4; i++)
+        {
+            if (invisicubes[i].activeSelf)
+            {
+                anyActive = i;
+                break;
+            }
         }
     }
 

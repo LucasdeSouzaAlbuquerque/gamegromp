@@ -9,17 +9,29 @@ public class Done_WeaponController : MonoBehaviour
 	public float delay;
 	public Material[] myMaterials = new Material[4];
 	public string[] tags = {"Green", "Red", "Blue", "Yellow"};
+    public float waveRacer = 0;
+    public float lastTime = 0;
 
 	void Start ()
 	{
-		InvokeRepeating ("Fire", delay, fireRate);
+		InvokeRepeating ("Fire", 0, fireRate);
 	}
 
-	void Fire ()
+    void Update()
+    {
+        if(Time.time > lastTime + waveRacer)
+        {
+            fireRate += 0.1f;
+            lastTime = Time.time;
+        }
+        Debug.Log(fireRate);
+    }
+
+    void Fire ()
 	{
 		GameObject shotCreated = Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
 		Renderer rend = shotCreated.GetComponent<Renderer> ();
-		int value = (int)Random.Range (1, 4);
+		int value = (int)Random.Range (1, 5);
 		switch(value){	
 		case 1:
 			rend.material = myMaterials [0];
@@ -38,7 +50,6 @@ public class Done_WeaponController : MonoBehaviour
 			shotCreated.tag = tags [3];
 			break;
 		}
-		Debug.Log (shotCreated.tag);
 		GetComponent<AudioSource>().Play();
 	}
 }
